@@ -6,7 +6,7 @@ import Navbar from "@/components/Navbar";
 import MarqueeCompanies from "@/components/MarqueeCompanies";
 import ReviewCarousel from "@/components/ReviewCarousel";
 import LatestDevelopments from "@/components/LatestDevelopments";
-import AdvancedFooter from "@/components/AdvancedFooter";
+import EnhancedFooter from "@/components/EnhancedFooter";
 import { useNavigate } from "react-router-dom";
 
 const features = [
@@ -31,24 +31,24 @@ const Index: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="relative min-h-screen bg-gradient-to-br from-blue-50 via-fuchsia-50 to-white dark:from-blue-950 dark:via-purple-950 dark:to-gray-900 transition-colors overflow-x-hidden">
+    <div className="relative min-h-screen bg-gradient-to-br from-[#ebe8fa] via-fuchsia-50 to-[#dde7fc] dark:from-blue-950 dark:via-purple-950 dark:to-gray-900 transition-colors overflow-x-hidden">
       {/* Unique animated SVG ambient background */}
-      <svg className="pointer-events-none fixed w-[135vw] h-[135vw] md:w-[98vw] md:h-[98vw] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[-1] opacity-45 select-none" viewBox="0 0 1200 900" fill="none">
+      <svg className="pointer-events-none fixed w-[135vw] h-[135vw] md:w-[98vw] md:h-[98vw] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[-1] opacity-55 select-none"
+        viewBox="0 0 1200 900" fill="none">
         <defs>
           <radialGradient id="bg2" cx="50%" cy="50%" r="52%">
-            <stop stopColor="#a7c7fd" stopOpacity="0.9"/>
-            <stop offset="0.68" stopColor="#e1bcfa" stopOpacity="0.38"/>
-            <stop offset="1" stopColor="#ffecd2" stopOpacity="0"/>
+            <stop stopColor="#dbd1fa" stopOpacity="0.97"/>
+            <stop offset="0.68" stopColor="#e5bcfa" stopOpacity="0.42"/>
+            <stop offset="1" stopColor="#b1ffeb" stopOpacity="0"/>
           </radialGradient>
         </defs>
-        <ellipse cx="600" cy="410" rx="520" ry="370" fill="url(#bg2)" />
-        <circle className="animate-pulse" cx="970" cy="350" r="59" fill="#e0e7ff" fillOpacity="0.22" />
-        <circle cx="160" cy="180" r="70" fill="#fbcfe8" fillOpacity="0.11" />
-        {/* Floating circles */}
-        <circle className="animate-pulse" cx="960" cy="789" r="28" fill="#bbf7d0" fillOpacity="0.23" />
-        <circle cx="980" cy="170" r="23" fill="#eabfff" fillOpacity="0.19" />
-        <circle cx="120" cy="730" r="22" fill="#ffe9bf" fillOpacity="0.19" />
-        <circle cx="720" cy="100" r="31" fill="#a5b4fc" fillOpacity="0.11" />
+        <ellipse cx="600" cy="410" rx="552" ry="410" fill="url(#bg2)" />
+        <circle className="animate-pulse" cx="970" cy="350" r="69" fill="#d6bfff" fillOpacity="0.11" />
+        <circle cx="160" cy="180" r="70" fill="#fbcfe8" fillOpacity="0.16" />
+        <circle className="animate-pulse" cx="960" cy="789" r="35" fill="#bbf7d0" fillOpacity="0.14" />
+        <circle cx="980" cy="170" r="33" fill="#eabfff" fillOpacity="0.26" />
+        <circle cx="120" cy="730" r="24" fill="#ffe9bf" fillOpacity="0.19" />
+        <circle cx="720" cy="100" r="41" fill="#a5b4fc" fillOpacity="0.18" />
       </svg>
       <Navbar />
       <section className="relative flex flex-col-reverse md:flex-row items-center justify-between pt-32 md:pt-40 pb-12 px-4 md:px-12 max-w-6xl mx-auto gap-12 animate-fade-in">
@@ -181,7 +181,7 @@ const Index: React.FC = () => {
       </section>
 
       {/* Enhanced Footer */}
-      <AdvancedFooter />
+      <EnhancedFooter />
     </div>
   );
 };
