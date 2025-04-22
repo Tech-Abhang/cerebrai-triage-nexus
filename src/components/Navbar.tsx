@@ -46,7 +46,7 @@ const Navbar: React.FC = () => {
             className="h-12 w-12 rounded-full object-cover shadow-md border-2 border-primary/60"
           /> */}
           <span className="font-semibold text-3xl font-['Varela Round'] flex items-center">
-            <span className="text-[#354745] tracking-wider">Cerebrum</span><span className="text-[#62d5d0] tracking-wider">.ai</span>
+            <span className="text-[#354745] tracking-wider dark:text-[#d0caca]">Cerebrum</span><span className="text-[#62d5d0] tracking-wider">.ai</span>
           </span>
         </div>
         <div className="hidden md:flex items-center gap-6">

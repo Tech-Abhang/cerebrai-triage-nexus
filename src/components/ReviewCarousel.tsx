@@ -30,6 +30,7 @@ const originalReviews = [
     title: "Health Tech Reviewer",
     image: "https://randomuser.me/api/portraits/women/44.jpg"
   },
+  
 ];
 
 // Create a longer array by duplicating and slightly varying the reviews
@@ -106,7 +107,7 @@ const ReviewCarousel: React.FC = () => {
   };
 
   return (
-    <section className="relative z-10 py-20 px-4 md:px-8 bg-gradient-to-br from-fuchsia-100 via-blue-50/60 to-white dark:from-[#34205e]/50 dark:via-background/60 dark:to-background transition-colors">
+    <section className="relative z-10 py-20 px-4 md:px-8 bg-gradient-to-b from-fuchsia-100 via-blue-50/60 to-white dark:from-[#34205e]/50 dark:via-background/60 dark:to-background transition-colors">
       <div className="max-w-5xl mx-auto flex flex-col items-center text-center gap-8 animate-fade-in">
         <h3 className="mb-2 text-2xl md:text-3xl font-semibold text-gradient-primary">What People Are Saying</h3>
         

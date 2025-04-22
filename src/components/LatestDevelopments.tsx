@@ -42,7 +42,7 @@ const news = [
 ];
 
 const LatestDevelopments: React.FC = () => (
-  <section className="relative py-20 px-2 md:px-6 bg-gradient-to-br from-indigo-100/50 via-fuchsia-50 to-blue-50 dark:from-[#181735] dark:via-[#23243A] dark:to-[#23243A]">
+  <section className="relative py-20 px-2 md:px-6  bg-gradient-to-t from-fuchsia-100 via-blue-50/60 to-white dark:from-[#34205e]/50 dark:via-background/60 dark:to-background">
     <h3 className="text-center mb-10 text-3xl md:text-4xl font-semibold text-gradient-primary tracking-tight">Explore Our Latest Developments</h3>
     <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-7 transition-all">
       {/* Tweets */}
@@ -51,19 +51,20 @@ const LatestDevelopments: React.FC = () => (
           <TweetCard {...tweet} key={idx} />
         )}
       </div>
+
       {/* News Cards */}
       <div className="md:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-8">
         {news.map((item, idx) => (
           <div
             key={item.title}
-            className="group bg-gradient-to-br from-white via-gray-50 to-fuchsia-50 dark:from-[#1b1b2b] dark:via-[#23243a] dark:to-[#312951] rounded-2xl shadow-xl border border-fuchsia-200/20 backdrop-blur-lg px-6 pt-7 pb-8 flex flex-col justify-between min-h-[316px] overflow-hidden transition-all hover:scale-[1.023] animate-scale-in"
+            className="group bg-white dark:bg-gradient-to-l dark:from-[#1b1b2b] dark:via-[#23243a] dark:to-[#312951] rounded-2xl shadow-xl border border-fuchsia-200/20 backdrop-blur-lg px-6 pt-7 pb-8 flex flex-col justify-between min-h-[316px] overflow-hidden transition-all hover:scale-[1.023] animate-scale-in"
             style={{ animationDelay: `${100 * idx}ms` }}
           >
             <div>
               <div className="flex items-center gap-3 mb-2">
                 <span className="text-xs bg-fuchsia-200/70 rounded px-2 py-1 font-semibold text-[#262142]">{item.title}</span>
               </div>
-              <span className="block font-semibold text-[#672c79] dark:text-[#f5eaff] text-lg mb-1">{item.highlight}</span>
+              <span className="block font-semibold text-[#672c79] dark:text-[#ffffff] text-lg mb-1">{item.highlight}</span>
               <span className="block text-[#6d5071] dark:text-[#d9cbf7] text-base mb-3">{item.details}</span>
             </div>
             <div className="flex gap-2 items-end justify-between mt-auto">

@@ -71,7 +71,7 @@ const companyLogos = [
 const MarqueeCompanies: React.FC = () => (
   <section className="relative w-full py-6 bg-white dark:bg-background border-y border-gray-100 dark:border-gray-800 z-20">
     <div className="max-w-6xl mx-auto">
-      <div className="flex flex-col md:flex-row gap-3 md:gap-7 items-center justify-between text-center px-2 pb-1">
+      <div className="flex flex-col md:flex-row gap-3 md:gap-7 items-center justify-between text-center px-2 pb-6">
         <div>
           <span className="text-2xl md:text-3xl font-extrabold text-gradient-primary block">32M+</span>
           <span className="text-xs text-gray-500 dark:text-gray-400">Lives Impacted</span>
@@ -85,8 +85,10 @@ const MarqueeCompanies: React.FC = () => (
           <span className="text-xs text-gray-500 dark:text-gray-400">Training Datasets</span>
         </div>
       </div>
+
+      {/* Marquee animation */}
+      
       <div className="w-full overflow-x-hidden relative mt-4">
-        {/* Marquee animation */}
         <div className="marquee inline-flex gap-12 animate-marquee whitespace-nowrap">
           {companyLogos.map((logo, i) => (
             <img src={logo.src} alt={logo.alt} key={i}

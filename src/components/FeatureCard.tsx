@@ -11,7 +11,7 @@ interface FeatureCardProps {
 const FeatureCard: React.FC<FeatureCardProps> = ({ icon, title, description }) => (
   <div
     className={cn(
-      "glass-morphism flex flex-col items-center justify-center p-6 rounded-xl bg-white/40 dark:bg-card border border-white/20 shadow hover:shadow-lg transition-transform duration-200 hover:scale-105 cursor-pointer min-w-[220px] w-full max-w-xs mx-auto group"
+      " flex flex-col items-center justify-center p-6 rounded-xl hover:shadow-lg transition-transform duration-200 hover:scale-105 cursor-pointer min-w-[220px] w-full max-w-xs mx-auto group"
     )}
   >
     <div className="mb-3 text-primary group-hover:scale-110 transition-transform">{icon}</div>
