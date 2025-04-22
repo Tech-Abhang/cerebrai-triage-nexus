@@ -1,4 +1,6 @@
+//send data to api
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -11,35 +13,36 @@ interface ApiResponse {
 }
 
 const SkinQueryForm: React.FC = () => {
+  const navigate = useNavigate();
   const [question, setQuestion] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [apiResponse, setApiResponse] = useState<ApiResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     setError(null);
-    setApiResponse(null);
 
     try {
       // Using fetch to send a POST request to the API
       const formData = new FormData();
       formData.append("question", question);
       formData.append("image", imageUrl);
-
-      const response = await fetch("https://monthly-vital-reptile.ngrok-free.app/chat", {
+      
+      //send the data to the api
+      const response = await fetch("https://sensible-apparently-moth.ngrok-free.app/chat", {
         method: "POST",
         body: formData,
       });
 
       const data = await response.json();
-      setApiResponse(data);
+      
+      // Navigate to the output page with the API response data
+      navigate('/output', { state: { apiResponse: data } });
     } catch (err) {
       setError("Failed to get a response. Please try again.");
       console.error("Error fetching data:", err);
-    } finally {
       setIsLoading(false);
     }
   };
@@ -100,14 +103,6 @@ const SkinQueryForm: React.FC = () => {
         {error && (
           <div className="w-full p-3 mb-3 bg-red-100 border border-red-200 rounded-md text-red-800 dark:bg-red-900/30 dark:text-red-300 dark:border-red-800">
             {error}
-          </div>
-        )}
-        {apiResponse && (
-          <div className="w-full mt-4">
-            <h3 className="font-medium text-gray-800 dark:text-gray-200 mb-2">Analysis Result:</h3>
-            <pre className="bg-gray-50 dark:bg-gray-800/50 p-4 rounded-md overflow-auto text-sm">
-              {JSON.stringify(apiResponse, null, 2)}
-            </pre>
           </div>
         )}
       </CardFooter>

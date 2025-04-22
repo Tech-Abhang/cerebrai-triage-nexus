@@ -1,3 +1,4 @@
+//collect data
 import React from "react";
 import SkinQueryForm from "@/components/SkinQueryForm";
 import Navbar from "@/components/Navbar";

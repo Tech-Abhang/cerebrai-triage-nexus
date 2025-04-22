@@ -7,7 +7,7 @@ import { ThemeToggle } from "@/components/theme/ThemeToggle";
 const navItems = [
   { label: "Home", to: "/" },
   { label: "Why CerebrumAI?", to: "#features" },
-  { label: "Skin Analysis", to: "/input" },
+  // { label: "Skin Analysis", to: "/input" },
   { label: "Sign In", to: "/signin" },
 ];
 
