@@ -1,8 +1,8 @@
-
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { ThemeToggle } from "@/components/theme/ThemeToggle";
 
 const navItems = [
   { label: "Home", to: "/" },
@@ -38,15 +38,15 @@ const Navbar: React.FC = () => {
         ${show ? "translate-y-0" : "-translate-y-full"}
       `}
     >
-      <div className="max-w-6xl mx-auto px-4 flex items-center justify-between h-16">
+      <div className="max-w-6xl mx-auto px-4 flex items-center justify-between h-24">
         <div className="flex items-center gap-3 cursor-pointer" onClick={() => navigate("/")}>
-          <img
+          {/* <img
             src="https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=52&q=80"
             alt="CerebrumAI Logo"
-            className="h-9 w-9 rounded-full object-cover shadow-md border-2 border-primary/60"
-          />
-          <span className="font-extrabold text-xl bg-gradient-to-r from-blue-800 via-fuchsia-500 to-emerald-600 text-transparent bg-clip-text drop-shadow-md">
-            CerebrumAI
+            className="h-12 w-12 rounded-full object-cover shadow-md border-2 border-primary/60"
+          /> */}
+          <span className="font-semibold text-3xl font-['Varela Round'] flex items-center">
+            <span className="text-[#354745] tracking-wider">Cerebrum</span><span className="text-[#62d5d0] tracking-wider">.ai</span>
           </span>
         </div>
         <div className="hidden md:flex items-center gap-6">
@@ -55,7 +55,7 @@ const Navbar: React.FC = () => {
               <Button
                 key={item.label}
                 onClick={() => navigate(item.to)}
-                className="bg-primary/90 hover:bg-primary text-white font-semibold px-5 shadow"
+                className="bg-[#62d5d0]/90 hover:bg-[#62d5d0] text-white font-semibold px-5 shadow"
                 size="sm"
               >
                 {item.label}
@@ -73,12 +73,16 @@ const Navbar: React.FC = () => {
               </a>
             )
           )}
+          <div className="ml-2">
+            <ThemeToggle />
+          </div>
         </div>
         {/* Mobile Sign In button */}
-        <div className="md:hidden">
+        <div className="md:hidden flex items-center gap-3">
+          <ThemeToggle />
           <Button
             onClick={() => navigate("/signin")}
-            className="bg-primary/80 hover:bg-primary text-white font-semibold px-4"
+            className="bg-[#62d5d0]/80 hover:bg-[#62d5d0] text-white font-semibold px-4"
             size="sm"
           >
             <ArrowRight size={18} />

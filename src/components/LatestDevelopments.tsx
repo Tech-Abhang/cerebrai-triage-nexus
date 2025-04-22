@@ -38,19 +38,12 @@ const news = [
     cta: "Read News",
     link: "#"
   },
-  {
-    image: "https://images.unsplash.com/photo-1470813740244-df37b8c1edcb?w=410&q=80",
-    title: "Silicosis: A Global Occupational Health Crisis",
-    highlight: "Over 38 million workers are exposed to silica dust worldwide.",
-    details: "According to WHO, ~230,000 new cases of silicosis are diagnosed annually. Our technology is helping organizations with early detection and preventive care.",
-    cta: "Read The Full Blog",
-    link: "#"
-  }
+
 ];
 
 const LatestDevelopments: React.FC = () => (
   <section className="relative py-20 px-2 md:px-6 bg-gradient-to-br from-indigo-100/50 via-fuchsia-50 to-blue-50 dark:from-[#181735] dark:via-[#23243A] dark:to-[#23243A]">
-    <h3 className="text-center mb-10 text-3xl md:text-4xl font-extrabold text-gradient-primary tracking-tight">Explore Our Latest Developments</h3>
+    <h3 className="text-center mb-10 text-3xl md:text-4xl font-semibold text-gradient-primary tracking-tight">Explore Our Latest Developments</h3>
     <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-7 transition-all">
       {/* Tweets */}
       <div className="flex flex-col gap-5 md:col-span-1 w-full animate-fade-in">

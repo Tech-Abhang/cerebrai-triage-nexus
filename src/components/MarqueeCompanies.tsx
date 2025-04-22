@@ -1,4 +1,3 @@
-
 import React from "react";
 
 const companyLogos = [
@@ -25,6 +24,47 @@ const companyLogos = [
   {
     src: "https://seeklogo.com/images/I/inceptra-logo-A3F659E87B-seeklogo.com.png",
     alt: "Incepto",
+  },
+  // Added medical companies
+  {
+    src: "https://upload.wikimedia.org/wikipedia/commons/e/e9/Medtronic.svg",
+    alt: "Medtronic",
+  },
+  {
+    src: "https://upload.wikimedia.org/wikipedia/commons/9/94/Siemens_Healthineers_logo.svg",
+    alt: "Siemens Healthineers",
+  },
+  {
+    src: "https://upload.wikimedia.org/wikipedia/commons/f/f5/Bayer_HealthCare_logo.svg",
+    alt: "Bayer Healthcare",
+  },
+  {
+    src: "https://upload.wikimedia.org/wikipedia/commons/3/33/GE_HealthCare_Logo.svg",
+    alt: "GE Healthcare",
+  },
+  {
+    src: "https://upload.wikimedia.org/wikipedia/commons/0/0e/Pfizer_logo.svg",
+    alt: "Pfizer",
+  },
+  {
+    src: "https://upload.wikimedia.org/wikipedia/commons/2/2a/Johnson_%26_Johnson_Logo.svg",
+    alt: "Johnson & Johnson",
+  },
+  {
+    src: "https://upload.wikimedia.org/wikipedia/commons/4/44/Abbott_logo.svg",
+    alt: "Abbott",
+  },
+  {
+    src: "https://upload.wikimedia.org/wikipedia/commons/b/b3/Boston_Scientific.svg",
+    alt: "Boston Scientific",
+  },
+  {
+    src: "https://upload.wikimedia.org/wikipedia/commons/5/55/Novartis_logo.svg",
+    alt: "Novartis",
+  },
+  {
+    src: "https://upload.wikimedia.org/wikipedia/commons/3/34/Roche_Logo.svg",
+    alt: "Roche",
   },
 ];
 
@@ -59,7 +99,7 @@ const MarqueeCompanies: React.FC = () => (
           ))}
         </div>
       </div>
-      {/* Marquee animation keyframes */}
+      {/* Marquee animation keyframes - slower speed to accommodate more logos */}
       <style>
         {`
         @keyframes marquee {
@@ -67,7 +107,7 @@ const MarqueeCompanies: React.FC = () => (
           100% { transform: translateX(-50%); }
         }
         .animate-marquee {
-          animation: marquee 28s linear infinite;
+          animation: marquee 45s linear infinite;
         }
         `}
       </style>

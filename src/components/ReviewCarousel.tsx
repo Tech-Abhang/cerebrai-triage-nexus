@@ -1,7 +1,14 @@
-
 import React from "react";
+import { 
+  Carousel, 
+  CarouselContent, 
+  CarouselItem, 
+  CarouselNext, 
+  CarouselPrevious 
+} from "@/components/ui/carousel";
 
-const reviews = [
+// Create an expanded set of reviews to create a more seamless experience
+const originalReviews = [
   {
     quote:
       "CerebrumAI's holistic recommendations made me feel truly understood as a patient. Connecting securely to a doctor only when needed gave such peace of mind.",
@@ -25,134 +32,167 @@ const reviews = [
   },
 ];
 
-const ANIMATION_DURATION = 550;
+// Create a longer array by duplicating and slightly varying the reviews
+// This creates the illusion of more content and a continuous experience
+const reviews = [
+  ...originalReviews,
+  // Add more unique reviews to create a longer sequence
+  {
+    quote:
+      "As a healthcare administrator, I've seen CerebrumAI dramatically reduce unnecessary referrals while improving patient satisfaction scores.",
+    author: "Michael Chen",
+    title: "Healthcare Administrator",
+    image: "https://randomuser.me/api/portraits/men/32.jpg"
+  },
+  {
+    quote:
+      "The AI-powered triage system is incredibly accurate. It's helped our clinic prioritize cases more effectively than any system we've used before.",
+    author: "Dr. Sarah Johnson",
+    title: "Clinical Director",
+    image: "https://randomuser.me/api/portraits/women/28.jpg"
+  },
+  {
+    quote:
+      "The platform's ability to integrate with our existing systems made adoption seamless. Our staff adapted to it within days.",
+    author: "Robert Taylor",
+    title: "IT Healthcare Specialist",
+    image: "https://randomuser.me/api/portraits/men/45.jpg"
+  },
+];
 
 const ReviewCarousel: React.FC = () => {
   const [current, setCurrent] = React.useState(0);
-  const [animating, setAnimating] = React.useState(false);
-  const [direction, setDirection] = React.useState<"next" | "prev">("next");
+  const [api, setApi] = React.useState<any>(null);
+  
+  // Track direction of carousel movement for animation purposes
+  const [direction, setDirection] = React.useState(0);
+  const prevIndex = React.useRef(0);
 
-  // Auto-advance every 7s
+  // Update current index when carousel scrolls
   React.useEffect(() => {
-    const timer = setTimeout(
-      () => handleChange((current + 1) % reviews.length, "next"),
-      6700
-    );
-    return () => clearTimeout(timer);
-  }, [current]);
+    if (!api) return;
+    
+    api.on("select", () => {
+      const selectedIndex = api.selectedScrollSnap();
+      setDirection(selectedIndex > prevIndex.current ? 1 : -1);
+      prevIndex.current = selectedIndex;
+      setCurrent(selectedIndex);
+    });
+    
+    // Cleanup
+    return () => {
+      api.off("select");
+    };
+  }, [api]);
 
-  function handleChange(newIdx: number, dir: "next" | "prev") {
-    setDirection(dir);
-    setAnimating(true);
-    setTimeout(() => {
-      setCurrent(newIdx);
-      setAnimating(false);
-    }, ANIMATION_DURATION);
-  }
+  // Function to handle manual navigation
+  const handleNavigation = (index: number) => {
+    if (!api) return;
+    api.scrollTo(index);
+  };
+
+  // Handle next specifically to manage the continuous experience
+  const handleNext = () => {
+    if (!api) return;
+    setDirection(1);
+    api.scrollNext();
+  };
+
+  // Handle previous specifically to manage the continuous experience
+  const handlePrev = () => {
+    if (!api) return;
+    setDirection(-1);
+    api.scrollPrev();
+  };
 
   return (
-    <section className="relative z-10 py-20 px-2 md:px-0 bg-gradient-to-br from-fuchsia-100 via-blue-50/60 to-white dark:from-[#34205e]/50 dark:via-background/60 dark:to-background transition-colors">
-      <div className="max-w-2xl mx-auto flex flex-col items-center text-center gap-8 animate-fade-in">
-        <h3 className="mb-2 text-2xl md:text-3xl font-bold text-gradient-primary">What People Are Saying</h3>
-        <div className="relative w-full min-h-[264px]">
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div
-              className={`
-                max-w-lg w-full transition-all
-                ${animating ? "pointer-events-none" : ""}
-                ${animating && direction==="next" ? "animate-fade-out scale-95 -translate-x-9 opacity-60" : ""}
-                ${animating && direction==="prev" ? "animate-fade-out scale-95 translate-x-9 opacity-60" : ""}
-              `}
-              style={{
-                zIndex: animating ? 0 : 2,
-                position: animating ? "absolute" : "relative"
-              }}
-            >
-              <div className="bg-white/95 dark:bg-[#251e3e]/80 rounded-2xl shadow-2xl border border-fuchsia-200/30 px-7 py-9 transition-all duration-500 flex flex-col items-center gap-5 min-h-[244px]">
-                <span className="text-[62px] leading-none text-gradient-primary -mt-6">“</span>
-                <span className="text-lg md:text-xl text-gray-700 dark:text-gray-200 font-medium min-h-[54px]">{reviews[current].quote}</span>
-                <div className="flex items-center gap-4 mt-4">
-                  <img
-                    src={reviews[current].image}
-                    alt={reviews[current].author}
-                    className="h-12 w-12 rounded-full border-2 border-fuchsia-400 shadow-md object-cover"
-                  />
-                  <div className="flex flex-col text-left">
-                    <span className="font-semibold text-primary text-[16px]">{reviews[current].author}</span>
-                    <span className="text-xs text-gray-500 dark:text-gray-300">{reviews[current].title}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            {/* Animated card for incoming review */}
-            {animating && (
-              <div
-                className={`
-                  max-w-lg w-full absolute inset-0 transition-all
-                  ${direction==="next" ? "animate-fade-in translate-x-12 scale-110" : "animate-fade-in -translate-x-12 scale-110"}
-                `}
-                style={{ zIndex: 1 }}
+    <section className="relative z-10 py-20 px-4 md:px-8 bg-gradient-to-br from-fuchsia-100 via-blue-50/60 to-white dark:from-[#34205e]/50 dark:via-background/60 dark:to-background transition-colors">
+      <div className="max-w-5xl mx-auto flex flex-col items-center text-center gap-8 animate-fade-in">
+        <h3 className="mb-2 text-2xl md:text-3xl font-semibold text-gradient-primary">What People Are Saying</h3>
+        
+        <Carousel
+          className="w-full"
+          opts={{
+            align: "center",
+            loop: true,
+            skipSnaps: false,
+            dragFree: false,
+          }}
+          setApi={setApi}
+        >
+          <CarouselContent className="-ml-2 md:-ml-4">
+            {reviews.map((review, index) => (
+              <CarouselItem 
+                key={index} 
+                className="pl-2 md:pl-4 sm:basis-4/5 md:basis-2/3 lg:basis-1/2 transition-all duration-500"
               >
-                <div className="bg-white/95 dark:bg-[#251e3e]/80 rounded-2xl shadow-2xl border border-fuchsia-200/30 px-7 py-9 flex flex-col items-center gap-5 min-h-[244px]">
-                  <span className="text-[62px] leading-none text-gradient-primary -mt-6">“</span>
-                  <span className="text-lg md:text-xl text-gray-700 dark:text-gray-200 font-medium min-h-[54px]">{reviews[(current + (direction==="next"?1:reviews.length-1))%reviews.length].quote}</span>
+                <div className={`
+                  px-7 py-9 transition-all duration-500 
+                  flex flex-col items-center gap-5 min-h-[244px]
+                  transform
+                  ${index === current 
+                    ? "scale-110 opacity-100 z-10" 
+                    : index === (current + 1) % reviews.length || (current === reviews.length - 1 && index === 0)
+                      ? "scale-90 opacity-60 blur-[2px] z-0 translate-x-4" 
+                      : index === (current - 1 + reviews.length) % reviews.length || (current === 0 && index === reviews.length - 1)
+                      ? "scale-90 opacity-60 blur-[2px] z-0 -translate-x-4"
+                      : "scale-80 opacity-0 z-0"}
+                `}>
+                  <span className="text-[62px] leading-none text-gradient-primary -mt-6">"</span>
+                  <span className="text-lg md:text-xl text-gray-700 dark:text-gray-200 font-medium min-h-[54px]">
+                    {review.quote}
+                  </span>
                   <div className="flex items-center gap-4 mt-4">
                     <img
-                      src={
-                        reviews[(current + (direction==="next"?1:reviews.length-1))%reviews.length].image
-                      }
-                      alt={
-                        reviews[(current + (direction==="next"?1:reviews.length-1))%reviews.length].author
-                      }
-                      className="h-12 w-12 rounded-full border-2 border-fuchsia-400 shadow-md object-cover"
+                      src={review.image}
+                      alt={review.author}
+                      className={`h-12 w-12 rounded-full shadow-md object-cover transition-all duration-500 ${
+                        index === current ? "border-2 border-fuchsia-400" : "border border-fuchsia-300/30"
+                      }`}
                     />
                     <div className="flex flex-col text-left">
-                      <span className="font-semibold text-primary text-[16px]">
-                        {reviews[(current + (direction==="next"?1:reviews.length-1))%reviews.length].author}
-                      </span>
-                      <span className="text-xs text-gray-500 dark:text-gray-300">
-                        {reviews[(current + (direction==="next"?1:reviews.length-1))%reviews.length].title}
-                      </span>
+                      <span className="font-semibold text-primary text-[16px]">{review.author}</span>
+                      <span className="text-xs text-gray-500 dark:text-gray-300">{review.title}</span>
                     </div>
                   </div>
                 </div>
-              </div>
-            )}
-          </div>
-          {/* Controls */}
-          <div className="mt-6 flex gap-7 justify-center">
-            <button
-              aria-label="Previous review"
-              className="p-2 bg-primary/10 rounded-full hover:bg-fuchsia-200/40 border border-fuchsia-200/40 transition disabled:opacity-30"
-              onClick={() => !animating && handleChange((current - 1 + reviews.length) % reviews.length, "prev")}
-              disabled={animating}
-            >
-              <span className="sr-only">Previous</span>
-              <svg width={23} height={23} className="text-fuchsia-700" fill="none" viewBox="0 0 23 23"><path stroke="currentColor" strokeWidth={2} d="M14.5 18.5 8.5 12.5l6-6"/></svg>
-            </button>
-            <button
-              aria-label="Next review"
-              className="p-2 bg-primary/10 rounded-full hover:bg-fuchsia-200/40 border border-fuchsia-200/40 transition disabled:opacity-30"
-              onClick={() => !animating && handleChange((current + 1) % reviews.length, "next")}
-              disabled={animating}
-            >
-              <span className="sr-only">Next</span>
-              <svg width={23} height={23} className="text-fuchsia-700" fill="none" viewBox="0 0 23 23"><path stroke="currentColor" strokeWidth={2} d="M8.5 4.5L14.5 10.5l-6 6"/></svg>
-            </button>
-          </div>
-          {/* Dots */}
-          <div className="flex gap-2 mt-4 justify-center">
-            {reviews.map((_, i) => (
-              <span
-                key={i}
-                className={`w-2.5 h-2.5 rounded-full cursor-pointer transition-all duration-200 ${
-                  i === current ? "bg-fuchsia-500 scale-110" : "bg-fuchsia-200"
-                }`}
-                onClick={() => !animating && setCurrent(i)}
-              />
+              </CarouselItem>
             ))}
+          </CarouselContent>
+          
+          <div className="flex items-center justify-center gap-4 mt-8">
+            <CarouselPrevious 
+              className="!static h-8 w-8 p-2 bg-primary/10 hover:bg-fuchsia-200/40 border-none transition" 
+              onClick={(e) => {
+                e.preventDefault();
+                handlePrev();
+              }}
+            />
+            
+            {/* Dots - show only for original reviews to avoid overwhelming with too many dots */}
+            <div className="flex gap-2 justify-center">
+              {originalReviews.map((_, i) => (
+                <span
+                  key={i}
+                  className={`w-2.5 h-2.5 rounded-full cursor-pointer transition-all duration-200 ${
+                    current % originalReviews.length === i ? "bg-fuchsia-500 scale-110" : "bg-fuchsia-200"
+                  }`}
+                  onClick={() => {
+                    handleNavigation(i);
+                  }}
+                />
+              ))}
+            </div>
+            
+            <CarouselNext 
+              className="!static h-8 w-8 p-2 bg-primary/10 hover:bg-fuchsia-200/40 border-none transition" 
+              onClick={(e) => {
+                e.preventDefault();
+                handleNext();
+              }}
+            />
           </div>
-        </div>
+        </Carousel>
       </div>
     </section>
   );
